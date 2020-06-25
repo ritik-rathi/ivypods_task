@@ -12,7 +12,6 @@ class MainFeed extends StatefulWidget {
 }
 
 class _MainFeedState extends State<MainFeed> {
-  final FlareControls flareControls = FlareControls();
   String uid;
   @override
   void initState() {
@@ -67,7 +66,9 @@ class _MainFeedState extends State<MainFeed> {
                     String userimage =
                         snapshot.data.documents[index]['userimage'];
                     int count = snapshot.data.documents[index]['likes'].length;
-                    return post(image, like, docID, username, userimage, count);
+                    final FlareControls flareControls = new FlareControls();
+                    return post(image, like, docID, username, userimage, count,
+                        flareControls);
                   });
             }
           },
@@ -77,7 +78,7 @@ class _MainFeedState extends State<MainFeed> {
   }
 
   Widget post(String image, bool like, var docID, String username,
-      String userimage, int count) {
+      String userimage, int count, FlareControls flareControls) {
     return Card(
       color: Colors.teal[50],
       child: Column(
@@ -104,7 +105,7 @@ class _MainFeedState extends State<MainFeed> {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: GestureDetector(
               onDoubleTap: () {
-                flareControls.play("like", mixSeconds: 2);
+                flareControls.play("like");
                 print('Animation');
                 if (like) {
                   return null;
